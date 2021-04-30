@@ -10,38 +10,39 @@ router.get('/workouts', async (req, res) => {
       }
     }
   ])
-  .then(dbNote => {
-    res.json(dbNote);
-  })
-  .catch(err => {
-    res.json(err);
-  });});
+    .then(dbNote => {
+      res.json(dbNote);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 router.post('/workouts', async (req, res) => {
-    db.Workout.create(req)
-      .then(dbWorkout => {
-        res.json(dbWorkout);
-      })
-      .catch(err => {
-        res.json(err);
-      });
+  db.Workout.create(req)
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 router.put('/workouts/:id', async ({ params, body }, res) => {
   db.Workout.findByIdAndUpdate(
     params.id,
     {
-      $push: { 
-        exercises: body 
+      $push: {
+        exercises: body
       }
     }
   )
-  .then(dbUser => {
-    res.json(dbUser);
-  })
-  .catch(err => {
-    res.json(err);
-  });
+    .then(dbUser => {
+      res.json(dbUser);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 router.get('/workouts/range', async (req, res) => {
@@ -52,11 +53,14 @@ router.get('/workouts/range', async (req, res) => {
       }
     }
   ])
-  .then(dbNote => {
-    res.json(dbNote);
-  })
-  .catch(err => {
-    res.json(err);
-  });});
+    .sort({ _id: -1 })
+    .limit(7)
+    .then(dbNote => {
+      res.json(dbNote);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 module.exports = router;
