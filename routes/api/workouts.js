@@ -17,9 +17,8 @@ router.get('/workouts', async (req, res) => {
     res.json(err);
   });});
 
-router.post('/workouts', async ({body}, res) => {
-    db.Workout.create(body)
-      .then(({_id}) => db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, { new: true }))
+router.post('/workouts', async (req, res) => {
+    db.Workout.create(req)
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
